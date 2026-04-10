@@ -69,6 +69,51 @@ If config or auth is missing:
 - if login returns `selection_required`, show the candidate list and continue with `--resume --result-set --select <selectToken>`
 - after login, re-run `ailit doctor`
 
+#### Login Methods And Procedure
+
+##### Method 1: User-assisted login 
+
+When the agent's browser is unavailable or the user prefers to use their own browser:
+
+
+**Step 1: Start login server and immediately share the URL**
+
+Use direct output redirection to capture URL immediately:
+
+```powershell
+
+ailit auth login --timeout 3m 
+
+```
+This outputs the auth URL immediately. Share this URL with the user:
+- Example: `https://<domain_name>/#/?client_name=ailit-cli&mode=auth_code&redirect_uri=http%3A%2F%2F127.0.0.1%3A34203%2Fcallback&state=...`
+
+
+**Step 2: User completes login in their browser**
+
+User opens the URL, scans WeChat QR code, and logs in.
+
+**Step 3: User provides the callback URL**
+
+After login, the browser redirects to:
+```
+http://127.0.0.1:<port>/callback?auth_code=<code>&state=<state>
+```
+
+User copies this full callback URL and sends it to the agent.
+
+**Step 4: Agent executes the callback**
+
+```powershell
+curl "http://127.0.0.1:<port>/callback?auth_code=<code>&state=<state>"
+```
+
+**Step 5: Verify login**
+
+```powershell
+ailit doctor
+```
+
 ### 2. Search
 
 Use the default output first:
