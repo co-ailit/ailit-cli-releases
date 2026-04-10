@@ -1,11 +1,11 @@
 ---
 name: ailit-cli
-description: Use when an agent needs to perform Zhihuiji Space business operations via the local `ailit` CLI — including customer/product/account search, sale order management, stock queries, purchase records, sales reports, and debt analysis, especially in non-TTY environments where multi-result selection or resumable login may be needed.
+description: Use when an agent needs to perform 智慧记AI进销存 business operations via the local `ailit` CLI — including customer/product/account search, sale order management, stock queries, purchase records, sales reports, and debt analysis, especially in non-TTY environments where multi-result selection or resumable login may be needed.
 ---
 
 # Ailit CLI
 
-Use the local `ailit` command as the primary interface for Zhihuiji Space operations.
+Use the local `ailit` command as the primary interface for 智慧记AI进销存 operations.
 
 ## Core rules
 

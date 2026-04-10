@@ -1,6 +1,6 @@
 # ailit-cli
 
-`ailit` is a Go command-line tool for working with Zhihuiji Space sales workflows from the terminal. It can check local configuration and API connectivity, search customers, products, and settlement accounts, and create sales orders either interactively or from JSON drafts against the `space.zhihuiji.cn` backend.
+`ailit` is a Go command-line tool for working with 智慧记AI进销存 sales workflows from the terminal. It can check local configuration and API connectivity, search customers, products, and settlement accounts, and create sales orders either interactively or from JSON drafts against the `space.zhihuiji.cn` backend.
 
 ## Features
 

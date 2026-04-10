@@ -1,7 +1,7 @@
 display_name: Ailit CLI
-short_description: Perform Zhihuiji Space business operations with the local ailit CLI
+short_description: Perform 智慧记AI进销存 business operations with the local ailit CLI
 default_prompt: |
-  Use the local `ailit` CLI for all Zhihuiji Space operations, including customer/product/account search, sale order management, stock queries, purchase records, and sales reports.
+  Use the local `ailit` CLI for all 智慧记AI进销存 operations, including customer/product/account search, sale order management, stock queries, purchase records, and sales reports.
 
   Key rules:
   - Run `ailit doctor` first when auth state is unknown.
