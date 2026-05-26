@@ -11,7 +11,9 @@ Use the local `ailit` command as the primary interface for 智慧记AI进销存 
 
 ### Auth & health
 
-- Default to the browser authorization flow. When the CLI is not logged in, guide the user to run `ailit auth login` instead of manually writing `token` into config.
+- Do not manage tokens inside the skill. Auth comes from the invoking host: ordinary CLI/Codex/Claude Code use the CLI config, while Ailit Client injects its own runtime config with `AILIT_HOME`.
+- When an ordinary CLI/Codex/Claude Code run is not logged in, guide the user to run `ailit auth login` instead of manually writing `token` into config.
+- When `AILIT_AUTH_SOURCE=client`, do not run `ailit auth login`; tell the user to log in to Ailit Client again so the client can refresh its runtime config.
 - Run `ailit doctor` before business commands when config health is unknown.
 - Do not default to `ailit config set token ...` as the repair path.
 
@@ -64,7 +66,8 @@ ailit doctor
 
 If config or auth is missing:
 
-- tell the user to run `ailit auth login`
+- in ordinary CLI/Codex/Claude Code environments, tell the user to run `ailit auth login`
+- in Ailit Client environments (`AILIT_AUTH_SOURCE=client`), tell the user to re-login to Ailit Client instead of running CLI login
 - if the environment is non-TTY, prefer `ailit auth login --non-interactive --format json`
 - if login returns `selection_required`, show the candidate list and continue with `--resume --result-set --select <selectToken>`
 - after login, re-run `ailit doctor`
@@ -252,7 +255,7 @@ Fields **you must provide**:
 
 ## Login repair path
 
-Preferred recovery when the CLI is not ready:
+Preferred recovery when ordinary CLI/Codex/Claude Code auth is not ready:
 
 ```powershell
 ailit auth login
@@ -268,3 +271,5 @@ ailit doctor
 ```
 
 Only discuss manual config edits when the user is explicitly debugging a broken environment.
+
+In Ailit Client mode (`AILIT_AUTH_SOURCE=client`), the client supplies auth via `AILIT_HOME`; if auth is missing or invalid, ask the user to log in to Ailit Client again and then rerun `ailit doctor`.

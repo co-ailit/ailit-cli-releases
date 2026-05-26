@@ -132,19 +132,20 @@ ailit purchase supplier
 ## Suggested agent sequence — sale creation
 
 1. If auth state is unknown, run `ailit doctor`
-2. If the CLI is not logged in, use `ailit auth login` for terminal users, or `ailit auth login --non-interactive --format json` in non-TTY environments
+2. If ordinary CLI/Codex/Claude Code auth is missing, use `ailit auth login` for terminal users, or `ailit auth login --non-interactive --format json` in non-TTY environments
 3. If login returns `selection_required`, show the numeric `selectToken`, `displayName`, and `fields` when available, falling back to `summary`, then continue with `ailit auth login --resume <workflowId> --result-set <resultSetId> --select <selectToken> --format json`
-4. Re-run `ailit doctor`
-5. `ailit customer search <keyword>`
-6. If search returns `selection_required`, present the structured candidate fields and continue with `--result-set <resultSetId> --select <selectToken> --format json`
-7. `ailit product search <keyword>`
-8. If search returns `selection_required`, present the structured candidate fields and continue with `--result-set <resultSetId> --select <selectToken> --format json`
-9. Extract `productId`, `productSkuId`, `displayName` from `validatedItems[0].meta` — no need to call `ailit product get` again
-10. `ailit account search <keyword>` when payment mode is `FULL`
-11. If search returns `selection_required`, present the structured candidate fields and continue with `--result-set <resultSetId> --select <selectToken> --format json`
-12. `ailit sale create --json <file> --dry-run`
-13. Use the dry-run preview as the confirmation view for the user; only switch to `--format json` if raw request inspection is needed
-14. Only after explicit confirmation, run `ailit sale create --json <file>`
+4. If `AILIT_AUTH_SOURCE=client`, ask the user to log in to Ailit Client again instead of running CLI login
+5. Re-run `ailit doctor`
+6. `ailit customer search <keyword>`
+7. If search returns `selection_required`, present the structured candidate fields and continue with `--result-set <resultSetId> --select <selectToken> --format json`
+8. `ailit product search <keyword>`
+9. If search returns `selection_required`, present the structured candidate fields and continue with `--result-set <resultSetId> --select <selectToken> --format json`
+10. Extract `productId`, `productSkuId`, `displayName` from `validatedItems[0].meta` — no need to call `ailit product get` again
+11. `ailit account search <keyword>` when payment mode is `FULL`
+12. If search returns `selection_required`, present the structured candidate fields and continue with `--result-set <resultSetId> --select <selectToken> --format json`
+13. `ailit sale create --json <file> --dry-run`
+14. Use the dry-run preview as the confirmation view for the user; only switch to `--format json` if raw request inspection is needed
+15. Only after explicit confirmation, run `ailit sale create --json <file>`
 
 ## Suggested agent sequence — daily business overview
 
